@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', login),
     url(r'^sign_in/', sign_in),
-    url(r'^change_password', change_password),
-    url(r'tools', tools)
+    url(r'^change_password/', change_password),
+    url(r'tools/', tools)
 ]

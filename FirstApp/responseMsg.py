@@ -1,14 +1,35 @@
 from FirstApp.util import *
 
 
-class Msg:
+class ErrorCode(object):
+
+    SUCCESS_CODE = 200
+    FAILED_CODE = 0
+    SYSTEM_BUSY_CODE = 100
+
+
+class Msg(object):
+
+    LOGIN_SUCCESS = '登录成功'
+    SIGN_IN_SUCCESS = '注册成功'
+    CHANGE_PASSWORD_SUCCESS = '修改密码成功'
+    PARAMS_FAILED = '参数不合法'
+    USERNAME_NULL = '用户名不能为空'
+    PASSWORD_NULL = '密码不能为空'
+    USERNAME_EXIST = '用户名已注册'
+    USERNAME_LEN_MAX = '用户名最长16位'
+    PASSWORD_LEN_MAX = '密码最长16位'
+    SYSTEM_BUSY = '系统繁忙'
+    PASSWORD_ERROR = '密码错误'
+    USERNAME_NOT_SIGN_IN = '用户未注册'
+    TOKEN_FAILED = 'token 无效'
 
     def __init__(self):
         self.msg = {
             "login_200": {
                 "error_code": "200",
                 "msg": "登录成功",
-                "userToken": Util().userToken()
+                "userToken": Util.userToken()
             },
             "sign_in_200": {
                 "error_code": "200",

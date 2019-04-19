@@ -1,8 +1,8 @@
 import shutil
 import unittest
 from threading import Thread
-from Email import SendMail
-from HTMLTestReportCN import HTMLTestRunner
+from Scripts.Email import SendMail
+from Scripts.HTMLTestReportCN import HTMLTestRunner
 import time
 import os
 
