@@ -1,4 +1,5 @@
-from FirstApp.util import *
+import random
+import string
 
 
 class ErrorCode(object):
@@ -29,7 +30,7 @@ class Msg(object):
             "login_200": {
                 "error_code": "200",
                 "msg": "登录成功",
-                "userToken": Util.userToken()
+                "userToken": self.userToken(30)
             },
             "sign_in_200": {
                 "error_code": "200",
@@ -80,3 +81,8 @@ class Msg(object):
                 "msg": "token 无效"
             }
         }
+
+    def userToken(self, length):
+        random_str_list = [random.choice(string.ascii_letters + string.digits) for i in range(length)]
+        userToken = ''.join(random_str_list)
+        return userToken

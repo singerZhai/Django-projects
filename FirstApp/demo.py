@@ -152,3 +152,107 @@ import json
 #
 # print(dynamic_case(demo))
 # print(dynamic_case(demo1))
+
+
+# import requests
+#
+# url = "https://gateway.qschou.com/v3.0.0/passport/sms/login"
+# data = {
+#     "phone": "15611066631",
+#     "country": "86",
+#     "sms_code": "9527",
+#     "platform": "wxh5"
+# }
+#
+# r = requests.post(url=url, data=data)
+#
+# print(r.json())
+
+
+# import collections
+# import random
+#
+# Card = collections.namedtuple('Card', ['rank', 'suit'])
+#
+#
+# class FrenchDeck:
+#     ranks = [str(n) for n in range(2, 11)] + list('JQKA')
+#     suits = 'spades diamonds clubs hearts'.split()
+#
+#     def __init__(self):
+#         self._card = [Card(rank, suit) for suit in self.suits for rank in self.ranks]
+#
+#     def __len__(self):
+#         return len(self._card)
+#
+#     def __getitem__(self, position):
+#         return self._card[position]
+
+
+# french_deck = FrenchDeck()
+# print(french_deck.ranks)
+# print(french_deck.suits)
+# card = Card(123, 'hello')
+# print(len(french_deck))
+# print(french_deck._card)
+# print(french_deck[0])
+# print(french_deck[-1])
+# print(random.choice(french_deck))
+# for card in french_deck:
+#     print(card)
+# for card in reversed(french_deck):
+#     print(card)
+# print(Card('2', 'clubs') in french_deck)
+# suit_values = dict(spades=3, hearts=2, diamonds=1, clubs=0)
+#
+#
+# def spades_high(card):
+#     rank_value = FrenchDeck.ranks.index(card.rank)
+#     return rank_value * len(suit_values) + suit_values[card.suit]
+#
+# for card in sorted(french_deck, key=spades_high):
+#     print(card)
+
+# from math import hypot
+#
+# class Vector:
+#
+#     def __init__(self, x=0, y=0):
+#         self.x = x
+#         self.y = y
+#
+#     def __repr__(self):
+#         return 'Vector(%r, %r)' % (self.x, self.y)
+#
+#     def __abs__(self):
+#         return hypot(self.x, self.y)
+#
+#     def __bool__(self):
+#         return bool(abs(self))
+#
+#     def __add__(self, other):
+#         x = self.x + other.x
+#         y = self.y + other.y
+#         return Vector(x, y)
+#
+#     def __mul__(self, other):
+#         return Vector(self.x * scalar, self.y * scalar)
+# import requests
+# from requests.exceptions import InvalidSchema
+#
+# url = "123452524"
+# data = {'username': 'admin', 'password': '123456'}
+# try:
+#     r = requests.post(url, data)
+# except Exception:
+#     print("demo")
+
+# a = '123'
+# print(isinstance(1, type))
+
+# demo = '123'
+# print(callable(print))
+import os
+
+path = os.getcwd()
+print(path)

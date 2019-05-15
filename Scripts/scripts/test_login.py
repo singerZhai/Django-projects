@@ -1,24 +1,25 @@
-from time import sleep
-import requests
+from parameterized import parameterized
 import unittest
+from Scripts.Util.util import Util
 from Scripts.Util.logger import Log
-from Scripts.Util.util import Base, Conf
+from Scripts.Util.util import Conf
 
 
 class TestLogin(unittest.TestCase):
+
+    count = 1
 
     def setUp(self) -> None:
         self.logger = Log()
         self.logger.debug("begin")
 
-    def test_login(self):
+    @parameterized.expand(Util.get_json("login"))
+    def test_login(self, *args):
+        data = dict(args)
         url = Conf.msg['login']
-        all_data = Base().read_ini_case("login")
-        for i in all_data.values():
-            # print(i)
-            r = requests.post(url, i)
-            print(r.text)
-            # sleep(1)
+        res = Util.send_requests(url, data=data, method='post')
+        Util.write_static_files(res, 5)
+        # Util.assert_equal()
 
     def tearDown(self) -> None:
         self.logger.debug("end")
