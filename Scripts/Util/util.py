@@ -1,53 +1,35 @@
-import os
 import random
 import json
 import string
-import warnings
 import requests
 import sys
 from Scripts.Util.logger import *
-
-path = "../conf/"
-main_url = "http://0.0.0.0:8000"
-
-
-class Conf(object):
-    __main_url = "http://127.0.0.1:8000"
-    msg = {
-        'login': __main_url + '/login/',
-        'sign_in': __main_url + '/sign_in/',
-        'change_password': __main_url + '/change_password/',
-    }
+from Scripts.conf.config import Conf
 
 
 class Util(object):
     logger = Log()
 
     @staticmethod
-    def send_requests(url, data=None, method='get'):
-        warnings.simplefilter("ignore", ResourceWarning)
+    def send_request(url_name, data, method="GET"):
         headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
         }
-        s = requests.Session()
-        if method == 'get':
-            try:
-                response = str(s.get(url, headers=headers).json())
-            except Exception:
-                response = "{'failed': '请求失败'}"
-        elif method == 'post':
-            try:
-                response = str(s.post(url, data=data, headers=headers).json())
-            except Exception:
-                response = "{'failed': '请求失败'}"
-        else:
-            return "系统繁忙"
-        return response
+        response = None
+        if method == "GET":
+            response = requests.get(Conf.urlMap[url_name], headers=headers)
+        elif method == "POST":
+            response = requests.post(Conf.urlMap[url_name], data=data, headers=headers)
+        try:
+            res = response.json()
+            return res
+        except Exception:
+            return response.text
 
     @staticmethod
     def get_json(file_name):
         res_list = []
-        with open("../data/" + file_name + ".json", "r", encoding="utf-8") as f:
+        with open("./data/" + file_name + ".json", "r", encoding="utf-8") as f:
             res = json.load(f)
 
         for i in res.values():
@@ -66,7 +48,7 @@ class Util(object):
     def userToken(self):
         url = Conf.msg['login']
         data = self.get_json("login")[0]
-        print(data)
+        # print(data)
         r = requests.post(url, data)
         res = r.json()
         return res['userToken']
@@ -127,17 +109,18 @@ class Util(object):
         try:
             assert msg == except_msg
         except AssertionError:
-            Util.logger.warning(str(msg) + "!=" + str(except_msg))
+            Util.logger.error(str(msg) + "!=" + str(except_msg))
             raise AssertionError
 
     @staticmethod
-    def assert_equal(skip):
+    def assert_equal(func_name, skip=None):
         static_path = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
         os.path.join(static_path, "static/")
-        function_name = str(sys._getframe().f_back.f_code.co_name)
+        # function_name = str(sys._getframe().f_back.f_code.co_name)
         res_path = os.path.join(static_path, "static/")
-        except_file_name = str(os.path.join(res_path, function_name)) + ".txt"
-        res_except_file_name = str(os.path.join(res_path, function_name)) + "-assert_file.txt"
+        except_file_name = str(os.path.join(res_path, func_name)) + ".txt"
+        res_except_file_name = str(os.path.join(res_path, func_name)) + "-assert_file.txt"
+        # print("进行比较：{} 和 {}".format(except_file_name, res_except_file_name))
         with open(res_except_file_name, "r", encoding="utf-8") as f:
             res_msg = f.read()
         with open(except_file_name, "r", encoding="utf-8") as f:
@@ -148,8 +131,7 @@ class Util(object):
 
 
 if __name__ == '__main__':
-    print(Util.get_json("login"))
+    # print(Util.get_json("login"))
     # print(Util().userToken())
     # Util.write_static_files("1231234")
-    # Util.assert_equal("123")
-
+    Util.assert_equal('test_login', skip='userToken')

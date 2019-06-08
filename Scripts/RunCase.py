@@ -6,7 +6,6 @@ from Scripts.HTMLTestReportCN import HTMLTestRunner
 import time
 import os
 
-
 path = os.path.dirname(os.path.realpath(__file__))
 Report_path = os.path.join(path, 'Report')
 
@@ -19,7 +18,6 @@ if files_count > 10:
     # 如果report数量大于10条，清空目录
     shutil.rmtree(Report_path)
     os.mkdir(Report_path)
-
 
 if __name__ == '__main__':
     case_path = './scripts/'

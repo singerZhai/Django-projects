@@ -2,24 +2,25 @@ from parameterized import parameterized
 import unittest
 from Scripts.Util.util import Util
 from Scripts.Util.logger import Log
-from Scripts.Util.util import Conf
 
 
 class TestLogin(unittest.TestCase):
 
-    count = 1
+    global logger
 
-    def setUp(self) -> None:
-        self.logger = Log()
-        self.logger.debug("begin")
+    @classmethod
+    def setUpClass(cls):
+
+        cls.logger = Log()
+        cls.logger.debug("begin")
 
     @parameterized.expand(Util.get_json("login"))
     def test_login(self, *args):
         data = dict(args)
-        url = Conf.msg['login']
-        res = Util.send_requests(url, data=data, method='post')
-        Util.write_static_files(res, 5)
-        # Util.assert_equal()
+        response = Util.send_request('login', data, 'POST')
+        Util.write_static_files(response, 5)
 
-    def tearDown(self) -> None:
-        self.logger.debug("end")
+    @classmethod
+    def tearDownClass(cls):
+        Util.assert_equal('test_login')
+        cls.logger.wairning("end")

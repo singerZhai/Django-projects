@@ -1,4 +1,4 @@
-{'error_code': '200', 'msg': '登录成功', 'userToken': 'nZsznP20cz07O9W5MoXg9pV7Pjjfhw'}
+{'error_code': '200', 'msg': '登录成功', 'userToken': 'GUrhkGs3uEgVewoPJij6XdbvXqpQZj'}
 {'error_code': '2007', 'msg': '密码错误'}
 {'error_code': '2008', 'msg': '用户未注册'}
 {'error_code': '2002', 'msg': '用户名不能为空'}

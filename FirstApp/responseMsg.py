@@ -83,6 +83,6 @@ class Msg(object):
         }
 
     def userToken(self, length):
-        random_str_list = [random.choice(string.ascii_letters + string.digits) for i in range(length)]
+        random_str_list = [random.choice(string.ascii_letters + string.digits) for _ in range(length)]
         userToken = ''.join(random_str_list)
         return userToken
